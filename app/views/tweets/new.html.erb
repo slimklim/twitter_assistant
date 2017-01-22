@@ -1,0 +1,34 @@
+<div class="row">
+
+  <div class="col-sm-2 col-md-3 col-lg-3">
+  </div>
+
+  <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
+    <label>Message</label>
+    <div class="row">
+      <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+        <%= form_for :tweet, url: tweets_path, method: :post,
+        html: { id: "new_tweet", enctype: "multipart/form-data" } do |f| %>
+          <%= f.text_area :message, value: session[:message],
+          class: "form-control", style: "min-height: 100px; max-width: 100%" %>
+          <label class="btn btn-default btn-file" style="width: 100%">
+            Choise image
+            <%= f.file_field :image, accept: "image/*", style: "display: none;" %>
+          </label>
+
+        <% end %>
+      </div>
+      <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+        <button type="submit", form="new_tweet", class="btn btn-success"> Tweet! </button>
+        <br>
+        <!-- <span id="count"></span> characters left -->
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-2 col-md-3 col-lg-3">
+  </div>
+
+</div>
+
+

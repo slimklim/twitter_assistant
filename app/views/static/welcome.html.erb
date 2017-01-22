@@ -1,8 +1,6 @@
 <div class="center" id="user_nav">
-  <% if current_user %>
-    <h2> Welcome, <%= current_user.name %>! </h2>
-    <%= link_to "Sign Out", signout_path, class: "btn btn-lg btn-primary"%>
-  <% else %>
+  <% unless current_user %>
+    <h2> Welcome to Twitter-Assistant! </h2>
     <%= link_to "Sign in with Twitter", "/auth/twitter", class: "btn btn-lg btn-primary" %>
   <% end %>
 </div>

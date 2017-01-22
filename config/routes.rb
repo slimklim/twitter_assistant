@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :tweets, only: [:new, :create]
+  resources :sessions, only: [:create, :destroy]
 
-  root 'static#welcome'
+  match "/welcome" => "static#welcome", :as => :welcome, via: :get
 
   match "auth/:provider/callback" => "sessions#create", via: :get
   match "/signout" => "sessions#destroy", :as => :signout, via: :get
 
-
+  root 'tweets#new'
   match '*path' => redirect('/'), via: :get
 end
