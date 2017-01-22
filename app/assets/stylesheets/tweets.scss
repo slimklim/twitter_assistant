@@ -1,3 +1,27 @@
 // Place all the styles related to the tweets controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.tweets {
+  margin: 20px 0 0 0;
+
+  div {
+    padding-bottom: 0;
+
+    img {
+      margin: 0 10px 0 0;
+      max-width: 150px;
+    }
+
+    span {
+      text-align: right;
+
+      a {
+        margin: 0 0 0 20px;
+      }
+    }
+  }
+
+
+}
+

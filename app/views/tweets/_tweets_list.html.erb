@@ -1,0 +1,19 @@
+<div class="row">
+
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+    <% if @tweets %>
+
+      <%= will_paginate @tweets, inner_window: 1, outer_window: 0, previous_label: "<<", next_label: ">>" %>
+
+      <div class="tweets">
+        <%= render @tweets %>
+      </div>
+
+      <%= will_paginate @tweets, inner_window: 1, outer_window: 0, previous_label: "<<", next_label: ">>" %>
+
+    <% end %>
+
+  </div>
+
+</div>

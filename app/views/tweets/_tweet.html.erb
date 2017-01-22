@@ -1,0 +1,14 @@
+<div class="well">
+
+  <a href=<%= tweet.image_url %> target="_blank">
+    <img src=<%= tweet.image_url %>>
+  </a>
+
+
+  <%= tweet.message %>
+  <span>
+    <p>
+      <%= tweet.created_at.strftime("%d.%m.%Y %H:%M") %>
+      <a href=<%= tweet.url %> target="_blank">  View</a>
+  </span>
+</div>
