@@ -9,7 +9,7 @@ class TweetsController < ApplicationController
   end
 
   def create
-    tweet = if twitter_params[:image] ?
+    tweet = twitter_params[:image] ?
       current_user.tweetter_client.update_with_media(twitter_params[:message],
                                                       twitter_params[:image].tempfile) :
       current_user.tweetter_client.update(twitter_params[:message])
