@@ -5,8 +5,7 @@ class Tweet < ApplicationRecord
   default_scope -> { order('created_at DESC') }
 
   validates :message, presence: true, length: { maximum: 140 }
-  validates :url, presence: true
-  validates :user_id, presence: true
+  validates :url, :user_id, presence: true
 
   self.per_page = 10
 

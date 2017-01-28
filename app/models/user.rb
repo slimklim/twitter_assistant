@@ -2,11 +2,7 @@ class User < ApplicationRecord
 
   has_many :tweet
 
-  validates :provider, presence: true
-  validates :uid, presence: true
-  validates :name, presence: true
-  validates :oauth_token, presence: true
-  validates :oauth_secret, presence: true
+  validates :provider, :uid, :name, :oauth_token, :oauth_secret, presence: true
 
   def self.create_with_omniauth(auth)
     create! do |user|
@@ -18,7 +14,7 @@ class User < ApplicationRecord
     end
   end
 
-  def tweetter_client
+  def twitter_client
     client = Twitter::REST::Client.new do |config|
       config.consumer_key        = Rails.application.config.twitter_key
       config.consumer_secret     = Rails.application.config.twitter_secret

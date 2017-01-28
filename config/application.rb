@@ -21,5 +21,9 @@ module TwitterAssistant
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+
+    # twitter
+    config.twitter_key = "3EZpni5HKf3olbfOSQRBFV8Jx"
+    config.twitter_secret = "kJ3RICBwgUIfeMPg7KvUrMks4ZnjCCzo15jrsB65UhfguIUhGx"
   end
 end

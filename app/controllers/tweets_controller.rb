@@ -10,9 +10,9 @@ class TweetsController < ApplicationController
 
   def create
     tweet = twitter_params[:image] ?
-      current_user.tweetter_client.update_with_media(twitter_params[:message],
+      current_user.twitter_client.update_with_media(twitter_params[:message],
                                                       twitter_params[:image].tempfile) :
-      current_user.tweetter_client.update(twitter_params[:message])
+      current_user.twitter_client.update(twitter_params[:message])
     internal_save(tweet)
     flash[:success] = 'Tweet pushed!'
     redirect_to root_path
