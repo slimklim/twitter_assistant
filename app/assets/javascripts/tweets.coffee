@@ -2,12 +2,24 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-tweet_message = document.getElementById('tweet_message')
-count = document.getElementById('count')
+file_is_choised = ->
+  $('#label_choise_image').css('background-color', '#0f0')
 
-tweet_message.keyup = ->
+counter_characters = ->
   max = 140
-  count.innerHTML = max - this.value.length
+  count = $('#tweet_message').val().length
+  difference = max - count
+  if difference >= 0
+    $('#count_characters').text(difference)
+    $('#count_characters').css('color', '#333333')
+    $('#phrase_characters').text('characters left')
+  else
+    $('#count_characters').text(-difference)
+    $('#count_characters').css('color', '#f00')
+    $('#phrase_characters').text('characters over')
 
 
 
+$ ->
+  $('#tweet_image').change(file_is_choised)
+  $('#tweet_message').keyup(counter_characters)

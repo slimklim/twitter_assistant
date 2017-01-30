@@ -1,24 +1,22 @@
 class TweetsController < ApplicationController
 
   before_action :signed_in_user
+  before_action { @tweets = current_user.tweet.paginate(page: params[:page]) }
   around_action :temp_save_message, only: :create
-  before_action :check_tweet_length, only: :create
 
   def new
-    @tweets = current_user.tweet.paginate(page: params[:page])
   end
 
   def create
-    tweet = twitter_params[:image] ?
-      current_user.twitter_client.update_with_media(twitter_params[:message],
-                                                      twitter_params[:image].tempfile) :
-      current_user.twitter_client.update(twitter_params[:message])
-    internal_save(tweet)
-    flash[:success] = 'Tweet pushed!'
-    redirect_to root_path
+    tweet = make_tweet(twitter_params) if tweet_length_valid?
+    if tweet
+      internal_save(tweet)
+      flash.now[:success] = 'Tweet pushed!'
+      respond_some_format
+    end
   rescue Twitter::Error => err
     flash.now[:danger] = err
-    render :new
+    respond_some_format
   end
 
   private
@@ -33,13 +31,14 @@ class TweetsController < ApplicationController
       session[:message] = ''
     end
 
-    def check_tweet_length
-      if twitter_params[:message].size > 140
-        flash.now[:danger] = 'Message is over 140 characters.'
-        render :new
-      elsif twitter_params[:message].size.zero?
-        flash.now[:danger] = 'Message is missing.'
-        render :new
+    def tweet_length_valid?
+      danger = danger_about_length(twitter_params[:message])
+      if danger
+        flash.now[:danger] = danger
+        respond_some_format
+        false
+      else
+        true
       end
     end
 
@@ -56,6 +55,30 @@ class TweetsController < ApplicationController
       current_user.tweet.create(message: twitter_params[:message],
                                 url: url,
                                 image_url: image_url)
+    end
+
+    def respond_some_format
+      respond_to do |format|
+        format.html {render :new}
+        format.js
+      end
+    end
+
+    def danger_about_length(message)
+      if message.size > 140
+        'Message is over 140 characters.'
+      elsif message.size.zero?
+        'Message is missing.'
+      end
+    end
+
+    def make_tweet(params)
+      if params[:image]
+        current_user.twitter_client.update_with_media(params[:message],
+                                                        params[:image].tempfile)
+      else
+        current_user.twitter_client.update(params[:message])
+      end
     end
 
 end

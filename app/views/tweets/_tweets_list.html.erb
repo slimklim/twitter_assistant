@@ -6,7 +6,7 @@
 
       <%= will_paginate @tweets, inner_window: 1, outer_window: 0, previous_label: "<<", next_label: ">>" %>
 
-      <div class="tweets">
+      <div class="tweets" id="all_tweets">
         <%= render @tweets %>
       </div>
 

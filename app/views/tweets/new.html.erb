@@ -7,21 +7,22 @@
     <label>Message</label>
     <div class="row">
       <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
-        <%= form_for :tweet, url: tweets_path, method: :post,
+        <%= form_for :tweet, url: tweets_path, method: :post, remote: true, authenticity_token: true,
         html: { id: "new_tweet", enctype: "multipart/form-data" } do |f| %>
           <%= f.text_area :message, value: session[:message],
-          class: "form-control", style: "min-height: 100px; max-width: 100%" %>
-          <label class="btn btn-default btn-file" style="width: 100%">
+            class: "form-control", style: "min-height: 100px; max-width: 100%" %>
+          <label class="btn btn-default btn-file" style="width: 100%" id="label_choise_image">
             Choise image
             <%= f.file_field :image, accept: "image/*", style: "display: none;" %>
           </label>
-
         <% end %>
       </div>
       <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
-        <button type="submit", form="new_tweet", class="btn btn-success"> Tweet! </button>
+        <button type="submit" form="new_tweet" class="btn btn-success"
+          data-disable-with="Sending..."}> Tweet! </button>
         <br>
-        <!-- <span id="count"></span> characters left -->
+        <div id="count_characters"> 140 </div>
+        <div id="phrase_characters"> characters left </div>
       </div>
     </div>
   </div>
